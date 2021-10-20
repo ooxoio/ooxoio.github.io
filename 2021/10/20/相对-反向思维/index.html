@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相对 反向思维 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="tag"># 每日一题</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">相对 反向思维</h1>
+          <div class="post-meta">
+            <time>Oct 20, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><p><strong>每日一题：记录LeetCode每日一题里有趣的、值得思考的题目。</strong></p>
+<hr>
+<h4 id="453-最小操作次数使数组元素相等"><a href="#453-最小操作次数使数组元素相等" class="headerlink" title="453.最小操作次数使数组元素相等"></a>453.最小操作次数使数组元素相等</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">难度: 简单</span><br><span class="line">    </span><br><span class="line">给你一个长度为 n 的整数数组，每次操作将会使 n - <span class="number">1</span> 个元素增加 <span class="number">1</span> 。返回让数组所有元素相等的最小操作次数。</span><br><span class="line"></span><br><span class="line">示例 <span class="number">1</span>：</span><br><span class="line"></span><br><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">输出：<span class="number">3</span></span><br><span class="line">解释：</span><br><span class="line">只需要<span class="number">3</span>次操作（注意每次操作会增加两个元素的值）：</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]  =&gt;  [<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>]  =&gt;  [<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>]  =&gt;  [<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>]</span><br><span class="line">示例 <span class="number">2</span>：</span><br><span class="line"></span><br><span class="line">输入：nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">0</span></span><br><span class="line"> </span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">n == nums.length</span><br><span class="line"><span class="number">1</span> &lt;= nums.length &lt;= <span class="number">105</span></span><br><span class="line"><span class="number">-109</span> &lt;= nums[i] &lt;= <span class="number">109</span></span><br><span class="line">答案保证符合 <span class="number">32</span>-bit 整数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>我的思考过程：</strong></p>
+<p>很容易想到：</p>
+<p>1.每次一定是选取除最大数之外的n-1个数。</p>
+<p>2.当除了最大数之外其他数都相等的情况时，需要的操作次数就是它们与最大值的差值。</p>
+<p>3.初始时的最小值一定全程都会被选，这点可能稍微有点难想到，但也算好理解。</p>
+<p>尝试的解决方案：</p>
+<p>1.每次选取除最大值外的N-1个数，如何快速确定这N-1个数？</p>
+<p>无论是用堆还是说更暴力的排序，时间复杂度都不允许。</p>
+<p>2.最终的状态是所有数相等，那么能否用差分数组来解决。</p>
+<p>但由于每次选取的N-1个数不定，差分数组也没法解决。</p>
+<hr>
+<p><strong>解决方案：</strong></p>
+<p>这道题的难点之一就是这N-1个数的选取、增加1、再判断是否N个数相等、再回到N-1个数的选取。这个过程太复杂，尤其是<strong>N-1</strong>这个字眼。</p>
+<p>而如果我们只是想知道让所有数相等的操作次数，那么为什么不反向操作呢？</p>
+<p><strong>让N-1个数增加1 等价于 让单独的那个数 减少1</strong></p>
+<p>那么问题就转为了：每次可以选一个数减1，最少要多少次后所有数相等。</p>
+<p>即：遍历一遍找到最小值，再遍历一遍累加差值。</p>
+<p>时间复杂度 O(N) ，空间复杂度 O(1)。</p>
+<hr>
+<p><strong>Code：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minMoves</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> mins = INT_MAX;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;t : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (t &lt; mins)  mins = t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;t : nums) &#123;</span><br><span class="line">            ans += t- mins;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>总结：很多时候正面的、直接的去解决问题可能比较复杂，适当的从反面去思考，抓住相对的特点，或许有意外的收获。</strong></p>
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/18/Blog-prepare/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">Blog Prepare</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
