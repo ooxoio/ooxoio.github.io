@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unicode and UTF-8 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="tag"># 计算机知识</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">Unicode and UTF-8</h1>
+          <div class="post-meta">
+            <time>Oct 21, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><p><strong>计算机知识：记录各种计算机基础知识。</strong></p>
+<hr>
+<h4 id="写在前面：本文简单记录我目前对unicode，utf-8，计算机编码的理解，不一定准确，如有错误，望指正。"><a href="#写在前面：本文简单记录我目前对unicode，utf-8，计算机编码的理解，不一定准确，如有错误，望指正。" class="headerlink" title="写在前面：本文简单记录我目前对unicode，utf-8，计算机编码的理解，不一定准确，如有错误，望指正。"></a>写在前面：本文简单记录我目前对unicode，utf-8，计算机编码的理解，不一定准确，如有错误，望指正。</h4><h3 id="字符集与字符编码"><a href="#字符集与字符编码" class="headerlink" title="字符集与字符编码"></a>字符集与字符编码</h3><p>编码应该包括两部分：字符集 和 编码方式。</p>
+<p>每个国家的语言字符集几乎都是不一样的，字符集其实和计算机没有任何关系。比如我们中国就是各种汉字，其它国家可能是日文、英文字母。所以需要将字符进行二进制编码，将不同的字符用特定的方式存储到计算机中。</p>
+<p>而字符编码包含三步：</p>
+<p>第一层编码，我们需要给每个字符通过某种规则定下一个唯一对应的数字，这是一对一的，例如ASCII码中，”A”表示数字65。</p>
+<p>第二层编码，存储长度（字节数），是采用固定的存储长度，还是根据不同字符有不同变化的。例如ASCII码就是用一个字节存储的。</p>
+<p>第三层编码，存储格式，大端法还是小端法，这一层通常影响不大，有时是由系统决定，例如X86的机器采用的是小端法。</p>
+<p>而Unicode的出现就实现了第一层编码。它涵盖了所有国家所有语言的字符对应的二进制编码，是国际码、统一码。</p>
+<p>最开始它是2个字节，但明显16位不够用，这里一般指的是常用的字符。</p>
+<h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><p>众所周知，计算机只能识别机器码即二进制码。</p>
+<p>最熟悉的ascii码，是单字节的编码。最初的标准是最高位默认为0，剩下7个比特位用来编码，于是一共有128种01排列序列，也就是我们键盘上常见的这些字符。后来拓展了最高位后可达256种。</p>
+<p>但很明显无论是128还是256，对于很多语言的字符是远远不够的。因此有了双字节编码、多字节编码。</p>
+<p>那Unicode是多少字节编码？</p>
+<p>答案是：你可以向上面一样说是2字节，也可以说是0。</p>
+<p>虽然我们经常看到或提到Unicode编码，但它其实并不是一种编码，而是一个字典，一个表。这个表里包含了世界上所有语言它们所有的字符对应的二进制编码。是国际标准。通常以u开头，后面跟上16进制数。</p>
+<p>因此：Unicode实现了上述的第一层，却没有实现第二层。</p>
+<p>也就是Unicode没有定义该如何进行编码存储进计算机，不像ASCII码，直接就可以定位7位的长度然后计算机8位一个字节存储。Unicode的范围太大了，如果都以最长存储，两个字节65536都不太够用（据说已经差不多有10万个字符了），统一用三个字节又太过于浪费了。如果你是个只需要打英语的，本来一个字节就能覆盖所有英文字符了，结果Unicode硬是逼你三个字节存一个字符，那真是吃的太饱了。</p>
+<p>于是UTF-8就杀出来了。</p>
+<h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>顾名思义：Unicode transform format，即对unicode这个统一码字符集进行进一步编码。然后这个8很容易误导人，并不是8位的意思。</p>
+<p>UTF-8的特点是：它对不同范围的字符使用不同长度的编码。</p>
+<p>即对Unicode中不同范围的字符用不同长度字节来编码，当范围是000000-00007F时，就和ascii一样。</p>
+<p><img src="v2-dbce93b579f762fa75e78a455cd1b74c_720w.jpg" alt="img"></p>
+<p>规则就是：假设该字符的编码长度是len字节，那么第一个字节前面有len个1+1个0  剩余的用来编码，剩余的len-1字节都是以10开头。</p>
+<p>这个规则的作用就是计算机可以通过该规则判断出此时你是几个字节代表一个字符。</p>
+<p>站在计算机的角度，进行编码时，先读取第一个字节，查看它的首位，如果是0，说明这个字节一定是一个单字节的字符，就直接解析它后面的7位进行编码即可。如果是1，就继续读取这个字节的第二位第三位，直到碰到0为止，如果第二位就是0了，说明这个字节是前面字节的附属。如果第三第四位或以后才是0，那么这个字节开头有几个连续的1，就说明这个字符将会有几个字节</p>
+<p>比如『汉』这个字的Unicode编码是0x6C49。0x6C49在0x0800-0xFFFF之间，使用3字节模板：1110xxxx 10xxxxxx 10xxxxxx。将0x6C49写成二进制是：0110 1100 0100 1001， 用这个比特流依次代替模板中的x，得到：11100110 10110001 10001001。</p>
+<p>UTF-8的好处：</p>
+<p>1.针对不同的字符采用变长编码，节省空间。因为你想想，unicode涵盖了那么多语言的字符，那么位数肯定很多，那么就拿常见的’A’字符来说，8位足够，却要保存那么多位前置0。</p>
+<p>2.UTF-8传输效率很高。</p>
+<p>至于计算机中存储到底以unicode存储还是直接存的uft-8。好像都有吧，但utf-8在传输时效率更高。(先挖个坑)</p>
+<h3 id="UTF-16-UTF-32"><a href="#UTF-16-UTF-32" class="headerlink" title="UTF-16,UTF-32"></a>UTF-16,UTF-32</h3><p>顺便提一下这两种编码，和UTF-8不同，这里的16和32其实就代表固定用多少位来表示所有字符。当然对于某些情况下，更省空间，比如如果你的文章汉字居多，那么你使用UTF-16就比较好，因为只需要2个字节就可以存储，但如果用UTF-8，根据上面我们知道是选哟3个字节的。</p>
+<h3 id="为什么还需要GBK？"><a href="#为什么还需要GBK？" class="headerlink" title="为什么还需要GBK？"></a>为什么还需要GBK？</h3><p>可以理解为：GBK是中国专用的。其它国家可能也有相应专用的编码规则。</p>
+<p>既然unicode统一了字符集，UTF-8也实现了编码的第二层，编码也统一了。那为什么还要用GBK，并且我们日常生活中大多数都用的是GBK。</p>
+<p>是因为：虽然UTF-8节省了空间，但仍然有浪费。对于汉字仍需要3个字节，而我们国内使用最频繁的无疑就是汉字，GBK编码中汉字使用2个字节，并且兼容了ascii码。所以在国内的时候大多使用GBK为更优选择。</p>
+<hr>
+<h3 id="一个有趣的栗子："><a href="#一个有趣的栗子：" class="headerlink" title="一个有趣的栗子："></a>一个有趣的栗子：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_e = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_e[<span class="number">0</span>]</span><br><span class="line"><span class="string">&#x27;h&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>每个字符都是一个8位的字符串。所以在Python 里用字符串的截取功能[], 就会给我们第一个字节，同时也是一个字符 h。</p>
+<p>如果是汉语，在UTF-8 中三个字节才能代表一个字符。如果我们同样使用截取[]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">&#x27;汉字&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string[<span class="number">0</span>]</span><br><span class="line"><span class="string">&#x27;\xe6&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>只会给我们返回一个「汉」这个字的第一个字节， 也就是11100110， 但是「汉」需要用11100110 10111100 10100010 才能表示。那我们要怎么才能截取汉字的第一个字符呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_u = string.decode(<span class="string">&#x27;UTF-8&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_u[<span class="number">0</span>]</span><br><span class="line"><span class="string">u&#x27;\u6c49&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(string_u[<span class="number">0</span>].encode(<span class="string">&#x27;UTF-8&#x27;</span>))</span><br><span class="line">汉</span><br></pre></td></tr></table></figure>
+<p>先将string解码，还原成unicode字符集。然后再取[0]，就获得了第一个字符也就是’汉’的二进制编码，再将该二进制用utf-8编码，就是[汉]这个字符了。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>编码：</p>
+<p>1.确定你这个语言有的所有字符，形成字符集。这一步与计算机没有关系。比如你只需要26个字符，那字符集就是’a’，’b’。顺便提一下，当然至于汉字啊、日文啊那些奇形怪状是怎么显示出来的就和调用字体字形有关了。</p>
+<p>2.编码第一步：统一每个字符对应的数字。Unicode实现国际统一。</p>
+<p>3.编码第二步：确定每个字符需要几个字节，或者可以说这一步是真正我们常理解的编码的过程，UTF-8也好，GBK也好，都是对Unicode统一的字符集再编码，各有优缺点。</p>
+<p>3.编码第三步：大小端问题，系统决定，影响不大。</p>
+<p>参考资料：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这篇写的的很好:</span><br><span class="line">https://blog.csdn.net/weixin_38958597/article/details/112644710</span><br><span class="line"></span><br><span class="line">https://zhuanlan.zhihu.com/p/137875615</span><br></pre></td></tr></table></figure>
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/21/%E5%AD%97%E5%85%B8%E6%A0%91/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">字典树</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
