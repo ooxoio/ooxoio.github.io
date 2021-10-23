@@ -8,7 +8,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hello World [ ooxoio blog ]</title>
+<title>编译过程 [ ooxoio blog ]</title>
 
   <link rel="icon" href="/img/icon.png">
 
@@ -250,32 +250,84 @@
   <main class="page-content" aria-label="Content">
       <header class="header">
         
-        <h1 class="header-title" itemprop="headline">Hello World</h1>
+          <div class="tags">
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86/" class="tag"># 计算机知识</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">编译过程</h1>
           <div class="post-meta">
-            <time>Oct 18, 2021</time>
+            <time>Oct 23, 2021</time>
             <span itemprop="author">
               <span itemprop="name">ooxoio</span>
             </span>
           </div>
         </header>
 
-          <div class="page-content"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+          <div class="page-content"><p><strong>计算机知识：记录各种计算机基础知识。</strong></p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p>编译大致可以分为4步：</p>
+<ol>
+<li><p>编译预处理。</p>
+</li>
+<li><p>编译</p>
+</li>
+<li>汇编</li>
+<li>链接</li>
+</ol>
+<h4 id="1-预处理"><a href="#1-预处理" class="headerlink" title="1.预处理"></a>1.预处理</h4><p>读取C源程序，对其中的伪指令（以#开头的指令）和特殊符号进行处理。</p>
+<ul>
+<li>宏定义指令</li>
+<li>条件编译指令</li>
+<li>头文件包含指令：将包含的头文件里的定义加入。</li>
+</ul>
+<p>预处理生成.i文件。</p>
+<h4 id="2-编译"><a href="#2-编译" class="headerlink" title="2.编译"></a>2.编译</h4><p>主要进行词法、语法分析。检测完毕后，生成汇编代码，生成.s汇编文件。</p>
+<p>编译结束后可能会有一些编译器做的优化。</p>
+<h4 id="3-汇编"><a href="#3-汇编" class="headerlink" title="3.汇编"></a>3.汇编</h4><p>将编译生成的.s汇编文件翻译成目标机器指令的过程。汇编最终生成目标文件即.o文件。</p>
+<p>目标文件由段组成，通常一个目标文件至少包含两个段：</p>
+<p><strong>代码段</strong>：</p>
+<p>主要是程序的指令。可读、可执行，一般不可写。</p>
+<p><strong>数据段</strong>：</p>
+<p>存放程序中用到的各自变量等。</p>
+<p><strong>目标文件主要有三种</strong>：</p>
+<p>1.可重定位目标文件。上述汇编完生成的就是该文件。</p>
+<p>2.可执行文件。当可重定位目标文件相互链接后即可可执行文件。</p>
+<p>3.共享的目标文件。</p>
+<h4 id="4-链接"><a href="#4-链接" class="headerlink" title="4.链接"></a>4.链接</h4><p>上述已经提到汇编生成的是可重定位文件，还需要进行链接后才可被执行。因为程序中可能调用了其它库函数比如常见的C库函数，也可能有你自在其它文件里实现的函数。因此需要将两者的.o文件链接。</p>
+<p><strong>链接分为两种：</strong></p>
+<ol>
+<li><p>静态链接</p>
+<p>静态链接就比如我们平常使用C库函数就是静态链接。不过库函数一般只会编译一次，当用到某个库函数的时候，直接链接对应的.o文件即可。</p>
+<p>它将源文件的.o文件和库函数的.o文件按一定顺序重新组成一个新的文件，即可执行文件，可以理解为函数的代码从其所在的静态链接库(.a)中被拷贝到了可执行文件里。之后当程序要运行的时候，直接运行即可。</p>
+<p>优点：都已经编译链接完，执行时速度快。</p>
+<p>缺点：可执行文件比较大。并且如果你多个程序都用了同个库函数，那也就是说生成的这多个可执行文件都包含了同样的内容。而且如果某个文件修改，就得重新编译链接这些文件。</p>
+</li>
+<li><p>动态链接</p>
+<p>动态链接就是把调用的函数所在文件模块（DLL/ so）和调用函数在文件中的位置等信息链接进目标程序，程序运行的时候再从DLL中寻找相应函数代码，因此需要相应DLL文件的支持。</p>
+<p>优点：</p>
+<p>1.如果多个程序使用到同一个文件，该文件只会被编译一次。</p>
+<p>由于静态库是在编译期间直接将代码合到可执行程序中，而动态库是在执行期时调用DLL中的函数体，所以执行速度比动态库要快一点；</p>
+<p>2.可执行文件比较小。</p>
+<p>3.如果该文件被修改，只需要重新编译该文件即可。</p>
+<p>缺点：</p>
+<p>1.由于静态库是在编译期间直接将代码合到可执行程序中，而动态库是在执行期时调用DLL中的函数体，所以动态库要慢一点；</p>
+<p>其实动态链接和静态链接没有很大的区别，动态无非是延时到执行的时候再做真正的整合。</p>
+</li>
+</ol>
+<hr>
+<h3 id="三种文件的比较"><a href="#三种文件的比较" class="headerlink" title="三种文件的比较"></a>三种文件的比较</h3><p>.c源文件：</p>
+<p>可以按自己的需求修改。可移植性高，可以在不同的平台运行。但每次都要重新编译，效率可能不是很好。</p>
+<p>.o可重定位文件：</p>
+<p>汇编生成的该文件里都有一个汇编地址，即代表最终整合到可执行文件时相对程序头的位置，即用于后面链接时的重定位。</p>
+<p>.so/.dll：（可以理解为动态链接的时候，该文件就不是编译去生成.o文件，而是去生成.dll文件，挖个坑）</p>
+<p>和.o类似，无非就是运行时动态加载，因此也就带来了相对的好处和坏处。</p>
 </div>
           <nav class="post-nav">
     
-    <a class="post-nav-item post-nav-prev" href="/2021/10/18/Blog-prepare/">
-      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
-      <span class="post-title">Blog Prepare</span>
-    </a>
     
+    <a class="post-nav-item post-nav-next" href="/2021/10/22/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">摩尔投票</span>
+    </a>
     
   </nav>
 
