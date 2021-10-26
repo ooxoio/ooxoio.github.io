@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>值引用与完美转发 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/CPP/" class="tag"># CPP</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">值引用与完美转发</h1>
+          <div class="post-meta">
+            <time>Oct 26, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><h3 id="1-浅谈右值引用"><a href="#1-浅谈右值引用" class="headerlink" title="1.浅谈右值引用"></a>1.浅谈右值引用</h3><p>右值引用，一般是直接让某个指针成员属性直接赋值。</p>
+<p>不要试图在赋值运算符或者拷贝构造里直接：</p>
+<p>*this = &amp;a。这不就无限调用了吗。这句话又调用了赋值运算符，又去赋值运算符函数里再执行这句话。。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span> :</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="built_in">A</span>(<span class="keyword">int</span> age) : <span class="built_in">age</span>(age) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;constructor &quot;</span> &lt;&lt; age &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt;  endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">A</span>(<span class="keyword">const</span> A &amp;a) :<span class="built_in">age</span>(a.age) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;copy constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">A</span>(A &amp;&amp;a) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;A(A &amp;&amp;a) begin&quot;</span> &lt;&lt; endl;</span><br><span class="line">        *<span class="keyword">this</span> = a;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;move constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    A&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> A &amp;a) &#123;</span><br><span class="line">        cout &lt;&lt;<span class="string">&quot;= operator begin&quot;</span> &lt;&lt; endl;</span><br><span class="line">        *<span class="keyword">this</span> = a; </span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;= operator&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">A <span class="title">a</span><span class="params">(<span class="number">18</span>)</span></span>;</span><br><span class="line">    <span class="function">A <span class="title">c</span><span class="params">(<span class="number">12</span>)</span></span>;</span><br><span class="line">    <span class="function">A <span class="title">b</span><span class="params">(move(c))</span></span>; <span class="comment">//会调用一次移动构造和无数次赋值运算符。很愚蠢。。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>右值引用一般使用场景是什么？</strong></p>
+<p>1.首先比较简单的就是函数参数的设定。如果函数参数传引用和值，效率肯定是不一样的。此时的话右值引用和之前的左值引用没什么太大区别，只不过前者是接受右值而已，后者接受左值。</p>
+<p>2.实现移动构造。</p>
+<p>要注意的是，移动构造一般是这个类成员属性有个指针类型的，否则移动构造没什么意义。因为如果成员属性是个值类型，那么无论如何构造它都得拷贝。</p>
+<p>而如果是指针，对于右值来说，右值包含将亡值、临时变量，可以直接把这个右值引用的值里面的那个指针拿过来，免得再创建拷贝一份。</p>
+<p>有点类似深拷贝和浅拷贝。</p>
+<p>回想一下，浅拷贝 是拷贝时候直接将指针变量赋值，而深拷贝是重新构造一份。</p>
+<p>移动构造就是浅拷贝，因为传进来的这个右值是个临时变量，即将消失，而在浅拷贝中顾虑的就是因为指向同一份指针，所以一个修改，另一个也随着改变。但既然这里是个临时变量，所以就没有这个顾虑，因此其实移动构造和浅拷贝差不多。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span> :</span><br><span class="line">    <span class="built_in">B</span>() &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;B constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">B</span>(<span class="keyword">const</span> B &amp;b) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;B copy constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">B</span>(B &amp;&amp;b) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;B move constructor&quot;</span>&lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span> :</span><br><span class="line">    B *b;</span><br><span class="line">    <span class="built_in">A</span>(B *b) : <span class="built_in">b</span>(b) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;A constructor &quot;</span> &lt;&lt;  endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">A</span>(<span class="keyword">const</span> A &amp;a) :<span class="built_in">b</span>(<span class="keyword">new</span> <span class="built_in">B</span>(*(a.b))) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;A copy constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">A</span>(A &amp;&amp;a) : <span class="built_in">b</span>(a.b)&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;A move constructor&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    B b;</span><br><span class="line">    <span class="function">A <span class="title">a</span><span class="params">(&amp;b)</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;====&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="function">A <span class="title">c</span><span class="params">(a)</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;===&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="function">A <span class="title">d</span><span class="params">(move(a))</span></span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">参考链接：</span><br><span class="line"></span><br><span class="line">https:<span class="comment">//blog.csdn.net/niu91/article/details/109241744</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-关于forward和move"><a href="#2-关于forward和move" class="headerlink" title="2.关于forward和move"></a>2.关于forward和move</h3><p>fowardSTL实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestForward</span><span class="params">(T &amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">print</span>(std::forward&lt;T&gt;(v));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// FUNCTION TEMPLATE forward</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class _Ty&gt;</span></span><br><span class="line"><span class="function">	_NODISCARD <span class="keyword">constexpr</span> _Ty&amp;&amp; <span class="title">forward</span><span class="params">(<span class="keyword">remove_reference_t</span>&lt;_Ty&gt;&amp; _Arg)</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">	</span>&#123;	<span class="comment">// forward an lvalue as either an lvalue or an rvalue</span></span><br><span class="line">	<span class="keyword">return</span> (<span class="keyword">static_cast</span>&lt;_Ty&amp;&amp;&gt;(_Arg));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class _Ty&gt;</span></span><br><span class="line"><span class="function">	_NODISCARD <span class="keyword">constexpr</span> _Ty&amp;&amp; <span class="title">forward</span><span class="params">(<span class="keyword">remove_reference_t</span>&lt;_Ty&gt;&amp;&amp; _Arg)</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function">	</span>&#123;	<span class="comment">// forward an rvalue as an rvalue</span></span><br><span class="line">	<span class="built_in"><span class="keyword">static_assert</span></span>(!is_lvalue_reference_v&lt;_Ty&gt;, <span class="string">&quot;bad forward call&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> (<span class="keyword">static_cast</span>&lt;_Ty&amp;&amp;&gt;(_Arg));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	对于上面的<span class="built_in">TestForward</span>(T &amp;&amp;v)来说，这里的v可能传进来的是左值也可能是右值，但Print里的v一定是个左值。而此时调用forward也一定会匹配到第一个forward版本即左值引用版本。</span><br><span class="line">    然后分析如果TestForward里传左值，T被引用折叠成T&amp;，即T&amp;传入forward，那么<span class="keyword">static_cast</span>三个&amp;折叠成左值引用，没问题，完美转发。</span><br><span class="line">    如果TestForward里传右值，T被引用折叠就还是T。但也是调用第一个forward，<span class="keyword">static_cast</span>两个&amp;，右值引用，完美转发！</span><br><span class="line">    而第二个forward只有forward&lt;T&gt;(<span class="built_in">move</span>()/ <span class="string">&quot;123&quot;</span>/ a * <span class="number">2</span>)；类似这样的明确传入的v是右值的时候才会被调用。</span><br><span class="line"></span><br><span class="line">所以有一些博客总结的时候会像下面一样说，注意这里说的t是TestForward的参数。</span><br><span class="line">即：</span><br><span class="line">当t是左值引用时，此时推到得到T = X&amp;，则T&amp;&amp;展开为X&amp; &amp;&amp;，经过引用折叠后得到X&amp;，即最后返回<span class="keyword">static_cast</span>&lt;X&amp;&gt;(t)。</span><br><span class="line"></span><br><span class="line">当t是右值引用时，此时推到得到T = X&amp;&amp;，则T&amp;&amp;展开为X&amp;&amp; &amp;&amp;，经过引用折叠后得到X&amp;&amp;，即最后返回<span class="keyword">static_cast</span>&lt;X&amp;&amp;&gt;(t)。</span><br><span class="line">    </span><br><span class="line">参考链接：https:<span class="comment">//segmentfault.com/a/1190000021259721</span></span><br></pre></td></tr></table></figure>
+<p>对于模板函数来说：</p>
+<p>参数是&amp;&amp;并不代表就一定是右值引用，此时只能说是个引用。</p>
+<p>因为要根据T的类型来进行引用折叠。</p>
+<p>所以forward中的remove_reference<T> 无论T是T&amp;还是T&amp;&amp;都转为不带引用的类型T。</p>
+<p>这样再在后面加上一个还是两个&amp;就代表左值引用和右值引用。</p>
+<p>虽然上面说了模板函数，template<typename T> </p>
+<p>void func(T &amp;&amp;a) {</p>
+<p>}</p>
+<p>此时 当T是左值引用还是右值引用不一定。</p>
+<p>但从外面传进来的，一定是个值！而根据它是左值还是右值，把此时的T折叠成T&amp; 还是 T&amp;&amp;。</p>
+<hr>
+<h3 id="3-remove-reference底层实现："><a href="#3-remove-reference底层实现：" class="headerlink" title="3.remove_reference底层实现："></a>3.remove_reference底层实现：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span></span></span><br><span class="line"><span class="class">	&#123;</span>	<span class="comment">// remove reference</span></span><br><span class="line">	<span class="keyword">using</span> type = _Ty;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span>  </span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span>&lt;</span>_Ty&amp;&gt;</span><br><span class="line">	&#123;	<span class="comment">// remove reference</span></span><br><span class="line">	<span class="keyword">using</span> type = _Ty;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">remove_reference</span>&lt;</span>_Ty&amp;&amp;&gt;</span><br><span class="line">	&#123;	<span class="comment">// remove rvalue reference</span></span><br><span class="line">	<span class="keyword">using</span> type = _Ty;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> _<span class="title">Ty</span>&gt;</span></span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">remove_reference_t</span> = <span class="keyword">typename</span> remove_reference&lt;_Ty&gt;::type;</span><br></pre></td></tr></table></figure>
+<p>实现了两个偏特化版本，目的都是为了：</p>
+<p>实现无论左值引用还是右值引用都转为不带引用类型。</p>
+<hr>
+<p>最后有一个疑问：</p>
+<p>为什么引用折叠</p>
+<p>&amp; &amp;是左值引用啊。</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020744971#articleHeader3">https://segmentfault.com/a/1190000020744971#articleHeader3</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/303493908/answer/539210821">https://www.zhihu.com/question/303493908/answer/539210821</a></p>
+<p>多篇博客都这么说。</p>
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/26/push-back-and-emplace-back/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">push_back and emplace_back</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>

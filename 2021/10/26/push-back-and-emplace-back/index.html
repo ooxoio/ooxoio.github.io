@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>push_back and emplace_back [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/STL/" class="tag"># STL</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">push_back and emplace_back</h1>
+          <div class="post-meta">
+            <time>Oct 26, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><h3 id="vector：push-back和emplace-back比较。"><a href="#vector：push-back和emplace-back比较。" class="headerlink" title="vector：push_back和emplace_back比较。"></a>vector：push_back和emplace_back比较。</h3><p>1.push_back() 和 emplace_back()的区别。</p>
+<p>如果只是说明它的表现出来的区别，那很简单。</p>
+<p>push_back()会先构造对象，然后再拷贝到vector的内存空间上，当然此时可以优化成移动拷贝构造，但仍然需要一次拷贝。</p>
+<p>emplace_back()会直接在vector的内存空间上直接构造，因此省略了拷贝的时间消耗。</p>
+<p>2.是只有传入右值的时候上述两者才有区别呢还是都有分别？以及具体分析到两者是如何实现上述表现的？这里涉及的就比较广了，移动构造、完美转发、右值引用等相关概念原理。</p>
+<p>第一个问题：其实和传入是右值还是左值并没有关系，emplace_back的关键在于它的STL实现里参数是可变参数，是允许直接按将要插入的元素的构造函数的参数列表传入，来实现直接构造，无需拷贝。而push_back的STL实现里参数就是明确的vector<T>,T类型，也就是你必须先构造一个T，再传入，而根据此时构造的这个T是临时变量or左值，再去调用移动构造还是拷贝构造。</p>
+<p>第二个问题：如何实现其实上面也说了，emplace_back是使用可变参数 + forward保持左右值性质，直接去构造要插入的元素对象。而push_back明确要用具体类型T。</p>
+<p>也就是说如果emplace_back直接和push_back一样传的是具体类型T，那么仍然需要一次构造和一次拷贝。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">官方给的emplace_back样例：</span><br><span class="line">    </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">President</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    std::string name;</span><br><span class="line">    std::string country;</span><br><span class="line">    <span class="keyword">int</span> year;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">President</span>(std::string p_name, std::string p_country, <span class="keyword">int</span> p_year)</span><br><span class="line">        : <span class="built_in">name</span>(std::<span class="built_in">move</span>(p_name)), <span class="built_in">country</span>(std::<span class="built_in">move</span>(p_country)), <span class="built_in">year</span>(p_year)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;I am being constructed.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">President</span>(President&amp;&amp; other)</span><br><span class="line">        : <span class="built_in">name</span>(std::<span class="built_in">move</span>(other.name)), <span class="built_in">country</span>(std::<span class="built_in">move</span>(other.country)), <span class="built_in">year</span>(other.year)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;I am being moved.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    President&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> President&amp; other) = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::vector&lt;President&gt; elections;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;emplace_back:\n&quot;</span>;</span><br><span class="line">    elections.<span class="built_in">emplace_back</span>(<span class="string">&quot;Nelson Mandela&quot;</span>, <span class="string">&quot;South Africa&quot;</span>, <span class="number">1994</span>);</span><br><span class="line"> </span><br><span class="line">    std::vector&lt;President&gt; reElections;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\npush_back:\n&quot;</span>;</span><br><span class="line">    reElections.<span class="built_in">push_back</span>(<span class="built_in">President</span>(<span class="string">&quot;Franklin Delano Roosevelt&quot;</span>, <span class="string">&quot;the USA&quot;</span>, <span class="number">1936</span>));</span><br><span class="line"> </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nContents:\n&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (President <span class="keyword">const</span>&amp; president: elections) &#123;</span><br><span class="line">        std::cout &lt;&lt; president.name &lt;&lt; <span class="string">&quot; was elected president of &quot;</span></span><br><span class="line">                  &lt;&lt; president.country &lt;&lt; <span class="string">&quot; in &quot;</span> &lt;&lt; president.year &lt;&lt; <span class="string">&quot;.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (President <span class="keyword">const</span>&amp; president: reElections) &#123;</span><br><span class="line">        std::cout &lt;&lt; president.name &lt;&lt; <span class="string">&quot; was re-elected president of &quot;</span></span><br><span class="line">                  &lt;&lt; president.country &lt;&lt; <span class="string">&quot; in &quot;</span> &lt;&lt; president.year &lt;&lt; <span class="string">&quot;.\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">emplace_back:</span><br><span class="line"></span><br><span class="line">I am being constructed.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">push_back:</span><br><span class="line"></span><br><span class="line">I am being constructed.</span><br><span class="line"></span><br><span class="line">I am being moved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https:<span class="comment">//felaim.blog.csdn.net/article/details/102580281?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.highlightwordscore&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-1.highlightwordscore</span></span><br><span class="line"></span><br><span class="line">https:<span class="comment">//zhuanlan.zhihu.com/p/213853588</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> value_type &amp;__x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;_M_impl._M_finish != <span class="keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123;</span><br><span class="line">        <span class="comment">// 首先判断容器满没满，如果没满那么就构造新的元素，然后插入新的元素</span></span><br><span class="line">        _Alloc_traits::<span class="built_in">construct</span>(<span class="keyword">this</span>-&gt;_M_impl, <span class="keyword">this</span>-&gt;_M_impl._M_finish,</span><br><span class="line">                                 __x);</span><br><span class="line">        ++<span class="keyword">this</span>-&gt;_M_impl._M_finish; <span class="comment">// 更新当前容器内元素数量</span></span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// 如果满了，那么就重新申请空间，然后拷贝数据，接着插入新数据 __x</span></span><br><span class="line">        _M_realloc_insert(<span class="built_in">end</span>(), __x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 C++ 版本为 C++11 及以上（也就是从 C++11 开始新加了这个方法），使用 emplace_back() 代替</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __cplusplus &gt;= 201103L</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(value_type &amp;&amp;__x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">emplace_back</span>(std::<span class="built_in">move</span>(__x));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp, <span class="keyword">typename</span> _Alloc&gt;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... _Args&gt;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __cplusplus &gt; 201402L</span></span><br><span class="line"><span class="keyword">typename</span> vector&lt;_Tp, _Alloc&gt;::reference</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">vector&lt;_Tp, _Alloc&gt;::<span class="built_in">emplace_back</span>(_Args &amp;&amp;... __args) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;_M_impl._M_finish != <span class="keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123;</span><br><span class="line">        <span class="comment">// 同样判断容器是否满了，没满的话，执行构造函数，对元素进行构造，并执行类型转换</span></span><br><span class="line">        _Alloc_traits::<span class="built_in">construct</span>(<span class="keyword">this</span>-&gt;_M_impl, <span class="keyword">this</span>-&gt;_M_impl._M_finish,</span><br><span class="line">                                 std::forward&lt;_Args&gt;(__args)...);</span><br><span class="line">        ++<span class="keyword">this</span>-&gt;_M_impl._M_finish; <span class="comment">// 更新当前容器大小</span></span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// 满了的话重新申请内存空间，将新的元素继续构造进来，并且进行类型转换</span></span><br><span class="line">        _M_realloc_insert(<span class="built_in">end</span>(), std::forward&lt;_Args&gt;(__args)...);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __cplusplus &gt; 201402L</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">back</span>(); <span class="comment">// 在 C++14版本之后，添加返回值，返回最后一个元素的引用</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>3.emplace_back()如果传入引用，该引用失效时会插入失败，典型的就是调用emplace_back(arr.back())时正好数组扩容，而back()返回引用。但push_back()不会有这样的问题。</p>
+<p>猜测是因为push_back()会在初始化列表中先用back()构造，然后才进入函数体判断是否哦扩容，最终再拷贝插入vector内存空间。</p>
+</div>
+          <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2021/10/26/%E5%80%BC%E5%BC%95%E7%94%A8%E4%B8%8E%E5%AE%8C%E7%BE%8E%E8%BD%AC%E5%8F%91/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">值引用与完美转发</span>
+    </a>
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/23/%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">编译过程</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
