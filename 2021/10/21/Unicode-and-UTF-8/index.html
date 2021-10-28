@@ -285,7 +285,7 @@
 <h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>顾名思义：Unicode transform format，即对unicode这个统一码字符集进行进一步编码。然后这个8很容易误导人，并不是8位的意思。</p>
 <p>UTF-8的特点是：它对不同范围的字符使用不同长度的编码。</p>
 <p>即对Unicode中不同范围的字符用不同长度字节来编码，当范围是000000-00007F时，就和ascii一样。</p>
-<p><img src="v2-dbce93b579f762fa75e78a455cd1b74c_720w.jpg" alt="img"></p>
+<p><img src="/2021/10/21/Unicode-and-UTF-8/v2-dbce93b579f762fa75e78a455cd1b74c_720w.jpg" alt="img"></p>
 <p>规则就是：假设该字符的编码长度是len字节，那么第一个字节前面有len个1+1个0  剩余的用来编码，剩余的len-1字节都是以10开头。</p>
 <p>这个规则的作用就是计算机可以通过该规则判断出此时你是几个字节代表一个字符。</p>
 <p>站在计算机的角度，进行编码时，先读取第一个字节，查看它的首位，如果是0，说明这个字节一定是一个单字节的字符，就直接解析它后面的7位进行编码即可。如果是1，就继续读取这个字节的第二位第三位，直到碰到0为止，如果第二位就是0了，说明这个字节是前面字节的附属。如果第三第四位或以后才是0，那么这个字节开头有几个连续的1，就说明这个字符将会有几个字节</p>
@@ -300,11 +300,14 @@
 <p>是因为：虽然UTF-8节省了空间，但仍然有浪费。对于汉字仍需要3个字节，而我们国内使用最频繁的无疑就是汉字，GBK编码中汉字使用2个字节，并且兼容了ascii码。所以在国内的时候大多使用GBK为更优选择。</p>
 <hr>
 <h3 id="一个有趣的栗子："><a href="#一个有趣的栗子：" class="headerlink" title="一个有趣的栗子："></a>一个有趣的栗子：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_e = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_e[<span class="number">0</span>]</span><br><span class="line"><span class="string">&#x27;h&#x27;</span></span><br></pre></td></tr></table></figure>
+
 <p>每个字符都是一个8位的字符串。所以在Python 里用字符串的截取功能[], 就会给我们第一个字节，同时也是一个字符 h。</p>
 <p>如果是汉语，在UTF-8 中三个字节才能代表一个字符。如果我们同样使用截取[]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string = <span class="string">&#x27;汉字&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string[<span class="number">0</span>]</span><br><span class="line"><span class="string">&#x27;\xe6&#x27;</span></span><br></pre></td></tr></table></figure>
+
 <p>只会给我们返回一个「汉」这个字的第一个字节， 也就是11100110， 但是「汉」需要用11100110 10111100 10100010 才能表示。那我们要怎么才能截取汉字的第一个字符呢？</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_u = string.decode(<span class="string">&#x27;UTF-8&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>string_u[<span class="number">0</span>]</span><br><span class="line"><span class="string">u&#x27;\u6c49&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(string_u[<span class="number">0</span>].encode(<span class="string">&#x27;UTF-8&#x27;</span>))</span><br><span class="line">汉</span><br></pre></td></tr></table></figure>
+
 <p>先将string解码，还原成unicode字符集。然后再取[0]，就获得了第一个字符也就是’汉’的二进制编码，再将该二进制用utf-8编码，就是[汉]这个字符了。</p>
 <h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>编码：</p>
 <p>1.确定你这个语言有的所有字符，形成字符集。这一步与计算机没有关系。比如你只需要26个字符，那字符集就是’a’，’b’。顺便提一下，当然至于汉字啊、日文啊那些奇形怪状是怎么显示出来的就和调用字体字形有关了。</p>
@@ -313,6 +316,7 @@
 <p>3.编码第三步：大小端问题，系统决定，影响不大。</p>
 <p>参考资料：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这篇写的的很好:</span><br><span class="line">https://blog.csdn.net/weixin_38958597/article/details/112644710</span><br><span class="line"></span><br><span class="line">https://zhuanlan.zhihu.com/p/137875615</span><br></pre></td></tr></table></figure>
+
 </div>
           <nav class="post-nav">
     

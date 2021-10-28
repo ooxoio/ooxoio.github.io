@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字符串匹配算法 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E7%AE%97%E6%B3%95/" class="tag"># 算法</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">字符串匹配算法</h1>
+          <div class="post-meta">
+            <time>Oct 27, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目的：</span><br><span class="line">在匹配串S中，查找模式串T第一次出现的下标，找不到返回<span class="number">-1</span>。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-暴力匹配"><a href="#1-暴力匹配" class="headerlink" title="1.暴力匹配"></a>1.暴力匹配</h3><p>最原始最直观的方法就是一个个匹配，以s串的每个为起始点匹配t串，如果匹配失败，起始点后移一位，继续尝试匹配。虽然这个方法看起来可能很蠢，但无论是后面的KMP还是其它匹配算法都是在这个最基本的思想上变化优化而来的。</p>
+<h3 id="2-KMP"><a href="#2-KMP" class="headerlink" title="2.KMP"></a>2.KMP</h3><h4 id="2-1思路分析："><a href="#2-1思路分析：" class="headerlink" title="2.1思路分析："></a>2.1思路分析：</h4><p>回想上面提到的暴力匹配，很重要的一个点是：当匹配失败的时候，匹配起始点往后移一位，再去尝试匹配。</p>
+<p>而之所以移动一位，是因为你怕错过正确答案，因此如果每次只移动一位，全部遍历后，一定不会漏掉答案。这是暴力匹配的优点。</p>
+<p>而与此同时，我们要优化的就是，如果尽可能的减少那些不必要的尝试，比如你用眼睛可以直观看出来往后移动1位、2位、3位都不会匹配，但计算机只能一个个去尝试。</p>
+<p>KMP算法就实现了，如何在不错过正确答案的情况下，每次尽可能减少尝试次数。</p>
+<hr>
+<p>先知道几个关键词：(可以先不纠结为什么，后面会逐一分析)</p>
+<p>1.最长相同前后缀。</p>
+<p>2.next数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">定义next[i]代表:s[i]的最长相同前后缀的前缀下标。如果前后缀为null，则等于<span class="number">-1.</span></span><br><span class="line"></span><br><span class="line">t = <span class="string">&quot;a&quot;</span></span><br><span class="line">最长相同前后缀是：null，next[<span class="number">0</span>] = <span class="number">-1.</span></span><br><span class="line">    </span><br><span class="line">t = <span class="string">&quot;aa&quot;</span></span><br><span class="line">最长相同前后缀是：a,最长前缀下标为<span class="number">0</span>，因此next[<span class="number">1</span>] = <span class="number">0.</span></span><br><span class="line">    </span><br><span class="line">t = <span class="string">&quot;aab&quot;</span></span><br><span class="line">最长相同前后缀是：null,next[<span class="number">2</span>] = <span class="number">-1.</span></span><br><span class="line">    </span><br><span class="line">t = <span class="string">&quot;aaba&quot;</span></span><br><span class="line">最长相同前后缀是：a, 最长前缀下标为<span class="number">0</span>，next[<span class="number">3</span>] = <span class="number">0.</span></span><br><span class="line">    </span><br><span class="line">t = <span class="string">&quot;aabaa&quot;</span></span><br><span class="line">最长相同前后缀是：aa, 最长前缀下标为<span class="number">1</span>，next[<span class="number">4</span>] = <span class="number">1.</span></span><br><span class="line">    </span><br><span class="line">t = <span class="string">&quot;aabaab&quot;</span>.</span><br><span class="line">那么t的最长相等前后缀就是aab，最长前缀下标为<span class="number">2</span>，next[<span class="number">5</span>] = <span class="number">2.</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>从样例中分析KMP的思想（关键）：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">S:xxxxxxxxxxxx	    T:xxxxxxxx</span><br><span class="line">  xxxxxxx	   	  	在下标<span class="number">6</span>匹配失败 T1</span><br><span class="line">      xxxxxxxx	    从下标<span class="number">4</span>匹配成功 T2</span><br><span class="line">  <span class="number">0123456</span></span><br><span class="line">T1在下标<span class="number">6</span>失配，可以说明T1和S在之前的位置都是相同的。</span><br><span class="line">也就是说：T1[<span class="number">0</span>,<span class="number">5</span>] = S[<span class="number">0</span>,<span class="number">5</span>].</span><br><span class="line">T2最终完全匹配，可以说明T2从下标<span class="number">4</span>开始和S都是相同的。</span><br><span class="line">也就是说：T2[<span class="number">4</span>,<span class="number">5</span>] = S[<span class="number">4</span>,<span class="number">5</span>].</span><br><span class="line"></span><br><span class="line">也就是说：T1[<span class="number">4</span>,<span class="number">5</span>] = T2[<span class="number">4</span>,<span class="number">5</span>]。</span><br><span class="line">也就是说，如果存在最终匹配串T2，一定有个规律就是T1的前缀等于T2的后缀。</span><br><span class="line">这也就是为什么，当失配的时候，T要移动到next[<span class="number">6</span> - <span class="number">1</span>] + <span class="number">1</span>这个位置继续去尝试匹配。</span><br><span class="line">而这个移动一定不会错过正确答案，却又能减少无意义的尝试比较。</span><br><span class="line"></span><br><span class="line">从而解释了两点：</span><br><span class="line">    <span class="number">1.</span>为什么要前缀等于后缀。</span><br><span class="line">    <span class="number">2.</span>为什么要是最长？</span><br><span class="line">    你可以发现，此时next[<span class="number">6</span> - <span class="number">1</span>]的前缀越长，T串下一个开始匹配的位置越靠后，T串就后移的越少。</span><br><span class="line">    也就是暴力匹配里的保证不会错过答案。</span><br><span class="line">    暴力匹配中，我们是让S串后移一位，这里我们保证S串一直不回溯，T串去不断到next[i]的位置。</span><br><span class="line">    你可以发现，next[i]越小，说明T往后移动的越多，相对的，就是S串后移的越多。</span><br><span class="line">    因此，使用最长前后缀，可以保证移动的越少，但可以跳过无意义比较，又可以不错过正确答案。</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">具体举例：</span><br><span class="line">S:aabaabaac		T:aabaac</span><br><span class="line">  aabaac	    在下标<span class="number">5</span>匹配失败T1</span><br><span class="line">     aabaac	    从下标<span class="number">3</span>匹配成功T2</span><br><span class="line">  <span class="number">012345</span></span><br><span class="line"></span><br><span class="line">next[<span class="number">5</span> - <span class="number">1</span>] = next[<span class="number">4</span>] = <span class="string">&quot;aa&quot;</span> = <span class="number">1.</span></span><br><span class="line">T移动到next[<span class="number">4</span>] + <span class="number">1</span>的位置即t[<span class="number">2</span>] = <span class="string">&#x27;b&#x27;</span>，继续去和S尝试匹配。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>现在你就可以知道为什么KMP的逻辑是：</p>
+<p>当t[i]失配的时候，t跳转到next[i - 1] + 1的位置，继续尝试和s串匹配。</p>
+<p>当next[i -1] = -1的时候，也就是说此时没有前后缀相等，t串跳到了下标0，而S串是不会回溯的，只能继续后移，也就是说以S串目前位置前面的所有为起始都无法匹配t串，也就是上述的T1和T2没有交集，只能T串从头开始，继续去看看后面有没有匹配的。</p>
+<hr>
+<h4 id="2-2编码步骤"><a href="#2-2编码步骤" class="headerlink" title="2.2编码步骤"></a>2.2编码步骤</h4><p>1.建立T的next数组。然而建立T的next数组这个过程，本身就是字符串匹配的过程。</p>
+<p>假设当前已知next[i] = k，要求next[i + 1]。</p>
+<p>情况1：T[i + 1] == T[k + 1]，这种情况下，next[i + 1]  = next[i] + 1，即长度多一。</p>
+<p>情况2：T[i + 1] != T[k + 1]，你把T[i + 1]当成S[i + 1]，这不就是字符串匹配过程，只不过此时的S串也是T串罢了。既然T[k + 1]不等，那就移动到T[next[k] + 1]的位置继续比较，和上述的KMP过程完全一致。</p>
+<p>2.开始S和T的匹配。</p>
+<p>S保持后移，不回溯。</p>
+<p>T匹配，后移即可，T不匹配，移动到next[i]。</p>
+<hr>
+<h3 id="2-3编码："><a href="#2-3编码：" class="headerlink" title="2.3编码："></a>2.3编码：</h3><p>编码的话也分两种：</p>
+<p>1.常规的建立T的next数组，然后匹配。</p>
+<p>2.自动机的思想，可以发现上面编码的两个步骤都涉及跳转到next[i]。</p>
+<p><strong>常规版本代码：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init_next</span><span class="params">(string &amp;t, vector&lt;<span class="keyword">int</span>&gt; &amp;next, <span class="keyword">int</span> &amp;j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; t.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j != <span class="number">-1</span> &amp;&amp; t[i] != t[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                j = next[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (t[i] == t[j + <span class="number">1</span>]) j++;</span><br><span class="line">            next[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">match</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> m = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">next</span><span class="params">(m)</span></span>;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">-1</span>;   <span class="comment">// 前后缀不能是同一个字符，所以只有一个字符的时候为-1</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">-1</span>;     <span class="comment">// 方便编码，j代表前一个位置的next值。即next[i - 1]的值。</span></span><br><span class="line">        <span class="comment">// 建立next数组</span></span><br><span class="line">        <span class="built_in">init_next</span>(t, next, j);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始匹配</span></span><br><span class="line">        j = <span class="number">-1</span>;        <span class="comment">// 代表T串上一个匹配到的位置, 初始为-1.</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j != <span class="number">-1</span> &amp;&amp; t[j + <span class="number">1</span>] != s[i]) &#123;</span><br><span class="line">                j = next[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (t[j + <span class="number">1</span>] == s[i]) j++;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">if</span> (j + <span class="number">1</span> == t.<span class="built_in">size</span>()) &#123;</span><br><span class="line">                <span class="keyword">return</span> i - m;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>自动机版本代码：</strong>其实从上面也可以看出来，在求next数组和真正match的时候，代码是一模一样的，只是前者S串和T串都是T串而已。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 在字符串t上匹配字符c，t的上一个匹配到的下标是j。</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(string &amp;t, <span class="keyword">char</span> c,<span class="keyword">int</span> &amp;j, vector&lt;<span class="keyword">int</span>&gt; &amp;next)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (j != <span class="number">-1</span> &amp;&amp; t[j + <span class="number">1</span>] != c) &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (t[j + <span class="number">1</span>] == c) j++;</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">match</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> m = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (m == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">next</span><span class="params">(m, <span class="number">0</span>)</span></span>;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">// 仍然是初始化next数组，此时传入的字符就是tt[i], 自动机也是在t上跳转，即t即充当s又充当t。</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">            next[i] = <span class="built_in">jump</span>(t, t[i], j, next);</span><br><span class="line">            cout &lt;&lt; next[i] &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// s和t match，此时传入的字符c就是s[i],自动机在t上跳转。</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        j = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">            j = <span class="built_in">jump</span>(t, s[i], j, next);</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">if</span> (j + <span class="number">1</span> == m) &#123;</span><br><span class="line">                <span class="keyword">return</span> i - m;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="2-4-KMP总结："><a href="#2-4-KMP总结：" class="headerlink" title="2.4 KMP总结："></a>2.4 KMP总结：</h4><p>KMP的公式是：失配时，T串跳到next[i - 1] + 1的位置，即跳到最长前缀的下一位。</p>
+<p>原因和正确性就是上述样例的分析：如果存在答案T2，T1和T2有交集时一定满足，前后缀相等，并且此时采用最长前缀可以使得T串后移的越少(相对来说，即S串后移越少)，即顺着暴力匹配的思路进行匹配。最终实现：在保证不漏掉正确答案的情况下，尽可能的减少无用的匹配。</p>
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/27/%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">原码、反码、补码</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
