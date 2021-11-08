@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>接雨水 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E7%AE%97%E6%B3%95/" class="tag"># 算法</a><a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="tag"># 每日一题</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">接雨水</h1>
+          <div class="post-meta">
+            <time>Nov 07, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><h3 id="LC-42-接雨水"><a href="#LC-42-接雨水" class="headerlink" title="LC.42.接雨水"></a>LC.42.接雨水</h3><p><img src="/2021/11/07/%E6%8E%A5%E9%9B%A8%E6%B0%B4/rainwatertrap.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">给定 n 个非负整数表示每个宽度为 <span class="number">1</span> 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</span><br><span class="line"></span><br><span class="line">示例 <span class="number">1</span>：</span><br><span class="line"></span><br><span class="line">输入：height = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">输出：<span class="number">6</span></span><br><span class="line">    </span><br><span class="line">解释：上面是由数组 [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>] 表示的高度图，在这种情况下，可以接 <span class="number">6</span> 个单位的雨水（蓝色部分表示雨水）。 </span><br><span class="line">示例 <span class="number">2</span>：</span><br><span class="line"></span><br><span class="line">输入：height = [<span class="number">4</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>]</span><br><span class="line">输出：<span class="number">9</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line"></span><br><span class="line">n == height.length</span><br><span class="line"><span class="number">1</span> &lt;= n &lt;= <span class="number">2</span> * <span class="number">104</span></span><br><span class="line"><span class="number">0</span> &lt;= height[i] &lt;= <span class="number">105</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>首先，这是道经典的题目。由于之前写过，并且也很容易分析得出可以使用单调栈来写，但这次每日一题遇到的时候竟然一时间用单调栈卡住了，反而自己琢磨出了另一种常规解法。因此，写这篇笔记来记录一下，并且后面稍微延申一下三维接雨水该怎么做。</strong></p>
+<h3 id="1-题目分析："><a href="#1-题目分析：" class="headerlink" title="1.题目分析："></a>1.题目分析：</h3><p>拿上面的样例1的图解来分析：可以很容易想到，可以使用单调栈来求每个柱子左右两边最近大于它的柱子，然后就可以求出这一段能接多少水。</p>
+<p>但此时有一个问题就是：如果直接以上面的思路来计算，会发生重复计算。比如上图的下标4和下标6会重复计算。当然此时有一个最暴力的办法就是，用个集合存储一下{x1,x2}，来避免重复计算。我第一次做这道题就是这么做的。然而这次遇到的时候就一直在想该如何不使用额外集合来去重，最终用单调栈没解出来，反而画图想到了另一个常规解法。</p>
+<h3 id="2-思路："><a href="#2-思路：" class="headerlink" title="2.思路："></a>2.思路：</h3><p>1.解法1：动态规划/直观贪心</p>
+<p>其实LC还是比较贼的，如果只拿样例一来分析，可能会想到一些比较简单的解法，但考虑不周全，这里建立自己动手画一下样例2的数据。</p>
+<p>对于每个柱子来讲，我们只考虑这个柱子能向上累计多少雨水，也就是不向左右扩展，宽度就是1。通过画图和分析：答案就是，它能达到的最高高度等于这个柱子左边最高柱子和右边最高柱子的较小值。</p>
+<p>因此，解法1就是记录每个柱子左右两边的最高柱子高度，然后取两者小的减去当前柱子的高度，累加即可。</p>
+<p>需要注意的就是：如果当前柱子左/右边没有比它高的就记作它本身，最左边和最右边的柱子同理直接记作本身。因为我们会取左右两边小的那个，如果取到它本身的高度，减一下累计雨水为0，符合上述逻辑，方便编码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = height.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> l[n + <span class="number">5</span>];</span><br><span class="line">        <span class="keyword">int</span> r[n + <span class="number">5</span>];</span><br><span class="line">        <span class="keyword">int</span> lmax = height[<span class="number">0</span>], rmax = height[n - <span class="number">1</span>], ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            lmax = <span class="built_in">max</span>(lmax, height[i]);</span><br><span class="line">            l[i] = lmax;</span><br><span class="line">            rmax = <span class="built_in">max</span>(rmax, height[n - i - <span class="number">1</span>]);</span><br><span class="line">            r[n - i - <span class="number">1</span>] = rmax;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            ans += <span class="built_in">min</span>(l[i], r[i]) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>解法1的空间优化：节省l数组和r数组。</p>
+<p>主要思路：双指针LR，分别从最左边和最右边的柱子开始向里移动。如果此时lmax &lt; rmax，那么L柱子能达到的最高高度只能是lmax，经过L柱子右边的最高柱子可能有比rmax还大的，也没有任何影响，因为我们取得是较小者，此时累加到ans并且L++，更新lmax。同理R–并且更新rmax。</p>
+<p>2.解法2：单调栈</p>
+<p>由于单调栈常用模式是求最近最小之类的。因此很容易就卡在我上面提到的思路。但这道题单调栈并不这样使用。</p>
+<p>其实本质和解法1是有点类似的。</p>
+<p>我们保证单调栈从栈底到栈顶是降序的。</p>
+<p>当单调栈里的元素个数&gt;=2的时候，即栈顶为top，栈顶下面一个为left，此时left一定大于top，对于当前柱子ind来说，如果它的高度也大于top，那么此时[left,top,ind]就围成了一个可以接雨水的凹槽，累计量为(ind - left - 1) * min(left, ind)。此时原先的top弹出，原先的left变成了top，继续尝试能否构造新的凹槽。最后把ind压入栈中。经过这个过程即可求得答案。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = height.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        stack&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> ind = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (ind &lt; n) &#123;</span><br><span class="line">            <span class="comment">// 不断构造[left,top,ind]的过程。</span></span><br><span class="line">            <span class="keyword">while</span> (s.<span class="built_in">size</span>() &gt;= <span class="number">2</span> &amp;&amp; height[s.<span class="built_in">top</span>()] &lt; height[ind]) &#123;</span><br><span class="line">                <span class="keyword">int</span> top = s.<span class="built_in">top</span>();</span><br><span class="line">                s.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">int</span> left = s.<span class="built_in">top</span>();</span><br><span class="line">                ans += (<span class="built_in">min</span>(height[ind], height[left]) - height[top]) * (ind - left - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 这里需要判断一下弹出，不能直接压入，否则无法保证单调栈的有序。</span></span><br><span class="line">            <span class="comment">// 如果上面的while是后者条件而退出的，需要弹出后再压入</span></span><br><span class="line">            <span class="keyword">if</span> (!s.<span class="built_in">empty</span>() &amp;&amp; height[s.<span class="built_in">top</span>()] &lt;= height[ind]) s.<span class="built_in">pop</span>();</span><br><span class="line">            s.<span class="built_in">push</span>(ind);</span><br><span class="line">            ind++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="LC-407-接雨水2"><a href="#LC-407-接雨水2" class="headerlink" title="LC.407.接雨水2"></a>LC.407.接雨水2</h3><p><img src="/2021/11/07/%E6%8E%A5%E9%9B%A8%E6%B0%B4/trap1-3d.jpg" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。</span><br><span class="line"></span><br><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: heightMap = [[<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]]</span><br><span class="line">输出: <span class="number">4</span></span><br><span class="line">解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为<span class="number">1</span>+<span class="number">2</span>+<span class="number">1</span>=<span class="number">4</span>。</span><br><span class="line"></span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">m == heightMap.length</span><br><span class="line">n == heightMap[i].length</span><br><span class="line"><span class="number">1</span> &lt;= m, n &lt;= <span class="number">200</span></span><br><span class="line"><span class="number">0</span> &lt;= heightMap[i][j] &lt;= <span class="number">2</span> * <span class="number">104</span></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="1-题目分析：-1"><a href="#1-题目分析：-1" class="headerlink" title="1.题目分析："></a>1.题目分析：</h3><p>当接雨水变长三维的之后，其实我们应该想到木桶效应。一个木桶能接的水高度取决于最短的那根木板。</p>
+<p>在这道题里：木板就是最外围的那圈柱子高度，最外围的柱子高度里最低的那根柱子，就是最终能接雨水的最高高度。</p>
+<p>因此我们可以用最小堆，先把最外围的柱子加进去。每次取当前最底的柱子t，然后解锁和它相邻柱子里最底的根k（原因就是这个柱子最终的高度是确定的，为max(k,t) )，如果此时k &lt; t 比就接到水了(t - h)，反之虽然接不到水，但仍然能解锁的也是这根柱子。其实这个过程有点dijikstra求最短路的过程，把柱子高度当成权值，每次取权值最小的先解锁，再依次去解锁其它柱子。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> dir[<span class="number">4</span>][<span class="number">2</span>] = &#123;</span><br><span class="line">        <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">cmp</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span> :</span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; t1, pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; t2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> t1.first &gt; t2.first;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trapRainWater</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; heightMap)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = heightMap.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> m = heightMap[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">2</span> || m &lt;= <span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="built_in">max</span>(n, m);</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">visited</span>(n, vector&lt;<span class="keyword">int</span>&gt;(m, <span class="number">0</span>));</span><br><span class="line">        priority_queue&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;, vector&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;, cmp&gt; q;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span> || i == n - <span class="number">1</span> || j == <span class="number">0</span> || j == m - <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!visited[i][j]) &#123;</span><br><span class="line">                        q.<span class="built_in">push</span>(&#123;heightMap[i][j], i * k + j&#125;);</span><br><span class="line">                        visited[i][j] = <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> t = q.<span class="built_in">top</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">int</span> x = t.second / k;</span><br><span class="line">            <span class="keyword">int</span> y = t.second % k;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">int</span> sx = x + dir[i][<span class="number">0</span>];</span><br><span class="line">                <span class="keyword">int</span> sy = y + dir[i][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (sx &lt; <span class="number">0</span> || sx &gt;= n || sy &lt; <span class="number">0</span> || sy &gt;= m || visited[sx][sy]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (heightMap[sx][sy] &lt; t.first) &#123;</span><br><span class="line">                    ans += t.first - heightMap[sx][sy];</span><br><span class="line">                &#125; </span><br><span class="line">                visited[sx][sy] = <span class="number">1</span>;</span><br><span class="line">                q.<span class="built_in">push</span>(&#123;<span class="built_in">max</span>(t.first, heightMap[sx][sy]), sx * k + sy&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/10/27/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">字符串匹配算法</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
