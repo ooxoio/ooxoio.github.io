@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>线程同步 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="tag"># 操作系统</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">线程同步</h1>
+          <div class="post-meta">
+            <time>Nov 13, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><h3 id="1-信号量"><a href="#1-信号量" class="headerlink" title="1.信号量"></a>1.信号量</h3><p>信号量sem作为一种进程/线程间通信方式，更多的用来实现同步。本质上是一个变量，是一个计数器。</p>
+<p>P，如果SV的值大于0，则将其减一；若SV的值为0，则挂起执行</p>
+<p>V，如果有其他进行因为等待SV而挂起，则唤醒；若没有，则将SV值加一</p>
+<p>信号量的取值可以是任何自然数，最常用的，最简单的信号量是二进制信号量，只有0和1两个值.</p>
+<blockquote>
+<ul>
+<li>sem_init函数用于初始化一个未命名的信号量</li>
+<li>sem_destory函数用于销毁信号量</li>
+<li>sem_wait函数将以原子操作方式将信号量减一,信号量为0时,sem_wait阻塞</li>
+<li>sem_post函数以原子操作方式将信号量加一,信号量大于0时,唤醒调用sem_post的线程</li>
+</ul>
+</blockquote>
+<h3 id="2-互斥量"><a href="#2-互斥量" class="headerlink" title="2.互斥量"></a>2.互斥量</h3><p>互斥量也称互斥锁，可以保护关键代码段，以确保独占式访问，当进入临界区的时候需要使用互斥锁加锁，离开时解锁。</p>
+<ul>
+<li>pthread_mutex_init函数用于初始化互斥锁</li>
+<li>pthread_mutex_destory函数用于销毁互斥锁</li>
+<li>pthread_mutex_lock函数以原子操作方式给互斥锁加锁</li>
+<li>pthread_mutex_unlock函数以原子操作方式给互斥锁解锁</li>
+</ul>
+<h4 id="信号量与互斥锁的区别"><a href="#信号量与互斥锁的区别" class="headerlink" title="信号量与互斥锁的区别"></a>信号量与互斥锁的区别</h4><p>1.互斥锁用来实现互斥，信号量用于实现同步。</p>
+<p>这是两者的根本区别，但又有很大联系。</p>
+<p>互斥：是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。</p>
+<p>同步：是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源</p>
+<p>2.互斥量取值只能为1或0，而信号量可以是其它数甚至负数。</p>
+<p>而且信号量通常还包含信号量集合，只不过我们一般只使用0号信号量，所以看起来就和互斥锁很像。</p>
+<p>3.互斥锁必须在同一个线程里加锁和解锁，而信号量可以在线程A进行wait，在线程B进行post。</p>
+<p>综上所述：我更愿意将互斥锁归到信号量中，把他理解为一种特殊的信号量，因为我们完全可以使用信号量来实现互斥锁的功能。</p>
+<h3 id="3-条件变量"><a href="#3-条件变量" class="headerlink" title="3.条件变量"></a>3.条件变量</h3><p>如果线程需要等待某个条件发生后，再执行某个代码段，该如何实现。</p>
+<p>最简单的方案就是：不停轮询判断，大致有两种方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">sleep</span>(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">if</span> (条件) &#123;</span><br><span class="line">        <span class="built_in">do_work</span>();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (条件) &#123;</span><br><span class="line">        <span class="built_in">do_work</span>();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>第一种轮询方式的缺点是：如果条件不成立进入到sleep的时候，条件又满足了，此时就白白等待。</p>
+<p>而第二种轮询方式的缺点是：cpu占用过高，在等待条件没有那么快到来的时候，它会一直霸占cpu。</p>
+<p>因此，引入条件变量。</p>
+<p>和互斥锁、信号量类似，条件变量本质也是一个全局变量，它的功能是阻塞线程，直至接收到“条件成立”的信号后，被阻塞的线程才能继续执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">初始化条件变量</span><br><span class="line">pthread_cond_t myCond = PTHREAD_COND_INITIALIZER;</span><br><span class="line">或者使用函数：</span><br><span class="line">int pthread_cond_init(pthread_cond_t * cond, const pthread_condattr_t * attr);</span><br><span class="line"></span><br><span class="line">阻塞当前线程，等待条件成立</span><br><span class="line">int pthread_cond_wait(pthread_cond_t* cond, pthread_mutex_t* mutex);</span><br><span class="line">int pthread_cond_timedwait(pthread_cond_t* cond, pthread_mutex_t* mutex, const struct timespec* abstime); </span><br><span class="line"></span><br><span class="line">唤醒线程：</span><br><span class="line">int pthread_cond_signal(pthread_cond_t* cond);</span><br><span class="line">int pthread_cond_broadcast(pthread_cond_t* cond);</span><br></pre></td></tr></table></figure>
+
+<p>pthread_cond_wait：该函数调用时需要传入 <strong>mutex参数(加锁的互斥锁)</strong> ,函数执行时,先把调用线程放入条件变量的请求队列,然后将互斥锁mutex解锁,当函数成功返回为0时(即被singal唤醒后，重新去抢锁然后加锁，<strong>也就是说wait函数内部会有一次解锁和加锁操作</strong>.</p>
+<p>原因：为了避免在pthread_cond_wait的间隙，错过了条件成立的唤醒，从而导致一直处于阻塞状态。</p>
+<p>假如wait函数没有上述暗藏的解锁与加锁操作，那么就可能在间隙中错过通知。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="comment">//初始化互斥锁</span></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> myMutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"><span class="comment">//初始化条件变量</span></span><br><span class="line"><span class="keyword">pthread_cond_t</span> myCond = PTHREAD_COND_INITIALIZER;</span><br><span class="line"><span class="comment">//设置全局变量</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//线程执行的函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">waitForTrue</span><span class="params">(<span class="keyword">void</span> *args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="comment">//条件变量阻塞线程之前，先对互斥锁执行“加锁”操作</span></span><br><span class="line">    res = <span class="built_in">pthread_mutex_lock</span>(&amp;myMutex);  </span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;waitForTrue 加锁失败\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;------等待 x 的值为 10\n&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">pthread_cond_wait</span>(&amp;myCond, &amp;myMutex) == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 条件成功执行的内容：</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;x = %d\n&quot;</span>, x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//最终将互斥锁解锁</span></span><br><span class="line">    <span class="built_in">pthread_mutex_unlock</span>(&amp;myMutex);		</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//线程执行的函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doneForTrue</span><span class="params">(<span class="keyword">void</span> *args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="number">10</span>) &#123;</span><br><span class="line">        <span class="comment">//对互斥锁执行“加锁”操作</span></span><br><span class="line">        res = <span class="built_in">pthread_mutex_lock</span>(&amp;myMutex);</span><br><span class="line">        <span class="comment">// 抢锁成功</span></span><br><span class="line">        <span class="keyword">if</span> (res == <span class="number">0</span>) &#123; </span><br><span class="line">            x++;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;doneForTrue：x = %d\n&quot;</span>, x);</span><br><span class="line">            <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">            <span class="comment">//对互斥锁“解锁”</span></span><br><span class="line">            <span class="built_in">pthread_mutex_unlock</span>(&amp;myMutex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//发送“条件成立”的信号，解除 mythread1 线程的“被阻塞”状态</span></span><br><span class="line">    res = <span class="built_in">pthread_cond_signal</span>(&amp;myCond);</span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;解除阻塞失败\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">pthread_t</span> mythread1, mythread2;</span><br><span class="line">    res = <span class="built_in">pthread_create</span>(&amp;mythread1, <span class="literal">NULL</span>, waitForTrue, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;mythread1线程创建失败\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    res = <span class="built_in">pthread_create</span>(&amp;mythread2, <span class="literal">NULL</span>, doneForTrue, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;mythread2线程创建失败\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//等待 mythread1 线程执行完成</span></span><br><span class="line">    res = <span class="built_in">pthread_join</span>(mythread1, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;1：等待线程失败\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//等待 mythread2 线程执行完成</span></span><br><span class="line">    res = <span class="built_in">pthread_join</span>(mythread2, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span> (res != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;2：等待线程失败\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//销毁条件变量</span></span><br><span class="line">    <span class="built_in">pthread_cond_destroy</span>(&amp;myCond);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output:</span><br><span class="line">------等待 x 的值为 <span class="number">10</span></span><br><span class="line">doneForTrue：x = <span class="number">1</span></span><br><span class="line">doneForTrue：x = <span class="number">2</span></span><br><span class="line">doneForTrue：x = <span class="number">3</span></span><br><span class="line">doneForTrue：x = <span class="number">4</span></span><br><span class="line">doneForTrue：x = <span class="number">5</span></span><br><span class="line">doneForTrue：x = <span class="number">6</span></span><br><span class="line">doneForTrue：x = <span class="number">7</span></span><br><span class="line">doneForTrue：x = <span class="number">8</span></span><br><span class="line">doneForTrue：x = <span class="number">9</span></span><br><span class="line">doneForTrue：x = <span class="number">10</span></span><br><span class="line">x = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>上述过程：</p>
+<p>在waitForTrue函数中，一定是抢到锁之后，调用pthread_cond_wait函数，此时如果条件不满足，那么会将该线程放入条件变量的等待队列中，然后解锁<strong>（这里一定会解锁，这里就是上述说的内部解锁）。</strong></p>
+<p>在doneForTrue函数中，每次对条件的修改都要先抢锁再解锁。当条件满足了，调用pthread_cond_signal函数，此时等待队列中的所有线程都会收到这个信号，然后重新去抢占锁，加锁成功后<strong>（这里就是上述说的内部加锁）</strong>，执行条件成立要做的时候，然后重新解锁。</p>
+<p>通过这个流程，可以保证，当在waitForTrue中调用wait函数的时候，条件一定不会突然成立或者失败，从而从间隙中错过，因为互斥锁的唯一的，而在doneForTrue函数中要修改条件必须抢占到锁。</p>
+<p>因此，执行pthread_cond_wait函数的时候，要么条件成立，不阻塞，直接执行。要么不成立，线程加入等待队列，解锁，等待条件的变化。这下知道上面为什么说wait函数内部会在这里解锁，因为如果不解锁，那么条件永远不会发生变化，singal函数永远不会被调用，从而陷入死锁。</p>
+<p>而内部的加锁，其实可以理解为，可能有多个线程在等待这个条件成立，但此时只需要一个线程执行，那么只有重新抢占到锁的线程执行即可。</p>
+<h3 id="总结：上述三种方式是常用的实现线程间同步的方法，使用起来不难，需要真正理解其意义才能更好的使用。对于它们的函数参数以及使用这里暂不赘述，在之后的项目中再进行细节的分析。"><a href="#总结：上述三种方式是常用的实现线程间同步的方法，使用起来不难，需要真正理解其意义才能更好的使用。对于它们的函数参数以及使用这里暂不赘述，在之后的项目中再进行细节的分析。" class="headerlink" title="总结：上述三种方式是常用的实现线程间同步的方法，使用起来不难，需要真正理解其意义才能更好的使用。对于它们的函数参数以及使用这里暂不赘述，在之后的项目中再进行细节的分析。-"></a>总结：上述三种方式是常用的实现线程间同步的方法，使用起来不难，需要真正理解其意义才能更好的使用。对于它们的函数参数以及使用这里暂不赘述，在之后的项目中再进行细节的分析。-</h3><hr>
+<p>参考：</p>
+<p>1.<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/8633.html">http://c.biancheng.net/view/8633.html</a></p>
+<p>2.两猿社- 01线程同步机制封装</p>
+</div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/11/07/%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">接雨水</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>
