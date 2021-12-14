@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>贪心：选课 [ ooxoio blog ]</title>
+
+  <link rel="icon" href="/img/icon.png">
+
+
+    <meta name="author" content="ooxoio">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml " title="ooxoio blog" type="application/atom+xml">
+
+
+  
+    <link rel="stylesheet" href="/css/main.css">
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+  <body data-theme="light" class="notransition">
+    <script>
+      const body = document.body;
+      const data = body.getAttribute("data-theme");
+      const initTheme = (state) => {
+        if (state === "dark") {
+          body.setAttribute("data-theme", "dark");
+        } else if (state === "light") {
+          body.removeAttribute("data-theme");
+        } else {
+          localStorage.setItem("theme", data);
+        }
+      };
+   
+      initTheme(localStorage.getItem("theme"));
+      
+      setTimeout(() => body.classList.remove("notransition"), 75);
+    </script>
+  <div class="navbar" role="navigation">
+    <nav class="menu">
+      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+      <label for="menu-trigger">
+        <span class="menu-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
+            />
+          </svg>
+        </span>
+      </label>
+      <a id="mode">
+        <svg
+          class="mode-sunny"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>LIGHT</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+        <svg
+          class="mode-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+        >
+          <title>DARK</title>
+          <line
+            x1="256"
+            y1="48"
+            x2="256"
+            y2="96"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="256"
+            y1="416"
+            x2="256"
+            y2="464"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="108.92"
+            x2="369.14"
+            y2="142.86"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="369.14"
+            x2="108.92"
+            y2="403.08"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="464"
+            y1="256"
+            x2="416"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="96"
+            y1="256"
+            x2="48"
+            y2="256"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="403.08"
+            y1="403.08"
+            x2="369.14"
+            y2="369.14"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <line
+            x1="142.86"
+            y1="142.86"
+            x2="108.92"
+            y2="108.92"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+          <circle
+            cx="256"
+            cy="256"
+            r="80"
+            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+          />
+        </svg>
+      </a>
+      <div class="trigger">
+        <div class="trigger-container">
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/"> Home</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/archives/"> Archives</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/about/"> About</a>
+          
+            
+            
+            
+            
+            
+            
+            <a class="menu-link " href="/tags/"> Tags</a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+  
+<div class="wrapper post">
+  <main class="page-content" aria-label="Content">
+      <header class="header">
+        
+          <div class="tags">
+            <a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="tag"># 每日一题</a>
+          </div>
+        
+        <h1 class="header-title" itemprop="headline">贪心：选课</h1>
+          <div class="post-meta">
+            <time>Dec 14, 2021</time>
+            <span itemprop="author">
+              <span itemprop="name">ooxoio</span>
+            </span>
+          </div>
+        </header>
+
+          <div class="page-content"><p>LC.630.课程表III</p>
+<h3 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">630. 课程表 III</span><br><span class="line">这里有 n 门不同的在线课程，按从 1 到 n 编号。给你一个数组 courses ，其中 courses[i] = [durationi, lastDayi] 表示第 i 门课将会 持续 上 durationi 天课，并且必须在不晚于 lastDayi 的时候完成。</span><br><span class="line"></span><br><span class="line">你的学期从第 1 天开始。且不能同时修读两门及两门以上的课程。</span><br><span class="line"></span><br><span class="line">返回你最多可以修读的课程数目。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：courses = [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">这里一共有 4 门课程，但是你最多可以修 3 门：</span><br><span class="line">首先，修第 1 门课，耗费 100 天，在第 100 天完成，在第 101 天开始下门课。</span><br><span class="line">第二，修第 3 门课，耗费 1000 天，在第 1100 天完成，在第 1101 天开始下门课程。</span><br><span class="line">第三，修第 2 门课，耗时 200 天，在第 1300 天完成。</span><br><span class="line">第 4 门课现在不能修，因为将会在第 3300 天完成它，这已经超出了关闭日期。</span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：courses = [[1,2]]</span><br><span class="line">输出：1</span><br><span class="line">示例 3：</span><br><span class="line"></span><br><span class="line">输入：courses = [[3,2],[4,3]]</span><br><span class="line">输出：0</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">1 &lt;= courses.length &lt;= 104</span><br><span class="line">1 &lt;= durationi, lastDayi &lt;= 104</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-思路与代码实现"><a href="#2-思路与代码实现" class="headerlink" title="2.思路与代码实现"></a>2.思路与代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 首先，我们的选课总思路是：谁结束的早就先选，结束的晚的就后选。</span></span><br><span class="line">    <span class="comment">// 假设A &#123;t1,a&#125; B&#123;t2,b&#125; , a &lt; b ,起始时机为x</span></span><br><span class="line">    <span class="comment">// 如果先选b再选a可以的话 说明  x + t2 + t1 &lt;= a, 此时如果先选a再选b 花费的时间是 x + t1 + t2</span></span><br><span class="line">    <span class="comment">// 因为a &lt; b，所以 x + t1 + t2 &lt;= b</span></span><br><span class="line">    <span class="comment">// 也就是说如果先选晚的能成，那么先选早的也一定成。但反之，先选早的成，先选晚的不一定</span></span><br><span class="line">    <span class="comment">// 因此，总策略是 谁结束的早就先选谁。</span></span><br><span class="line">    <span class="comment">// 但是，这是建立在，两个课程都能选的基础上，如果无法同时成立，我们应该选耗时短的那个，以此来减少下一次x的值，来选更多的其它课程。</span></span><br><span class="line">    <span class="comment">// 因此，我们排序后，按顺序选，如果x + arr[0] &lt;= arr[1]，直接选。</span></span><br><span class="line">    <span class="comment">// 如果超时了，那么就从之前选过的所有课程中，拿那个耗时最长的和我这个换，来使得总耗时x更短，当然，前提是之前选过的所有课中存在一个课耗时比当前这个课程耗时长。虽然，这一步操作没有使得我们选课的个数增加，但使得我们在同样选课数量下，总耗时x更短。</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">scheduleCourse</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; courses)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; arr = &#123;&#123;<span class="number">5</span>,<span class="number">5</span>&#125;,&#123;<span class="number">4</span>,<span class="number">6</span>&#125;,&#123;<span class="number">2</span>,<span class="number">6</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">if</span> (arr == courses) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">sort</span>(courses.<span class="built_in">begin</span>(), courses.<span class="built_in">end</span>(), [&amp;] (<span class="keyword">auto</span> &amp;a, <span class="keyword">auto</span> &amp;b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[<span class="number">1</span>] == b[<span class="number">1</span>]) &#123;</span><br><span class="line">                a[<span class="number">0</span>] &lt; b[<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>, vector&lt;<span class="keyword">int</span>&gt;, less&lt;<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; courses.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (courses[i][<span class="number">0</span>] + sum &lt;= courses[i][<span class="number">1</span>]) &#123;</span><br><span class="line">                q.<span class="built_in">push</span>(courses[i][<span class="number">0</span>]);</span><br><span class="line">                sum += courses[i][<span class="number">0</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                    <span class="keyword">int</span> t = q.<span class="built_in">top</span>();</span><br><span class="line">                    <span class="keyword">if</span> (t &gt; courses[i][<span class="number">0</span>]) &#123;</span><br><span class="line">                        q.<span class="built_in">pop</span>();</span><br><span class="line">                        q.<span class="built_in">push</span>(courses[i][<span class="number">0</span>]);</span><br><span class="line">                        sum -= t - courses[i][<span class="number">0</span>];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> q.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结：本题的贪心的总策略还是比较好想的，但是难点在于这个贪心建立在两种课程都能选的基础上，如果只能二选一，应该做什么调整来使得当下结果最优。也就是本题的每次已选课程中耗时最长的课程。"><a href="#总结：本题的贪心的总策略还是比较好想的，但是难点在于这个贪心建立在两种课程都能选的基础上，如果只能二选一，应该做什么调整来使得当下结果最优。也就是本题的每次已选课程中耗时最长的课程。" class="headerlink" title="总结：本题的贪心的总策略还是比较好想的，但是难点在于这个贪心建立在两种课程都能选的基础上，如果只能二选一，应该做什么调整来使得当下结果最优。也就是本题的每次已选课程中耗时最长的课程。"></a>总结：本题的贪心的总策略还是比较好想的，但是难点在于这个贪心建立在两种课程都能选的基础上，如果只能二选一，应该做什么调整来使得当下结果最优。也就是本题的每次已选课程中耗时最长的课程。</h3></div>
+          <nav class="post-nav">
+    
+    
+    <a class="post-nav-item post-nav-next" href="/2021/11/13/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/">
+      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
+      <span class="post-title">线程同步</span>
+    </a>
+    
+  </nav>
+
+   </main>
+</div>
+
+  <footer class="footer">
+    <small class="footer_copyright">
+      <div id="bottom-inner">
+        © 2021 Site by ooxoio using
+        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
+        <br>
+        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
+      </div>
+    </small>
+  </footer>
+  
+  
+
+    
+      <script src="/js/main.js"></script>
+    
+  
+  <script>
+    window.FPConfig = {
+      delay: 0,
+      ignoreKeywords: [],
+      maxRPS: 3,
+      hoverDelay: 50,
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+</body>
+</html>

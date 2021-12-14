@@ -298,6 +298,24 @@
 <p>而第二种轮询方式的缺点是：cpu占用过高，在等待条件没有那么快到来的时候，它会一直霸占cpu。</p>
 <p>因此，引入条件变量。</p>
 <p>和互斥锁、信号量类似，条件变量本质也是一个全局变量，它的功能是阻塞线程，直至接收到“条件成立”的信号后，被阻塞的线程才能继续执行。</p>
+<hr>
+<p><strong>经典例子：条件变量在生产者消费者模型中的应用</strong>（2021-12-1补充，之前的笔记可能没说的太清楚)</p>
+<h4 id="生产者-消费者模型"><a href="#生产者-消费者模型" class="headerlink" title="生产者-消费者模型"></a><strong>生产者-消费者模型</strong></h4><p>这里摘抄《Unix 环境高级编程》中第11章线程关于pthread_cond_wait的介绍中有一个生产者-消费者的例子P311，其中，process_msg相当于消费者，enqueue_msg相当于生产者，struct msg* workq作为缓冲队列。</p>
+<p>生产者和消费者是互斥关系，两者对缓冲区访问互斥，同时生产者和消费者又是一个相互协作与同步的关系，只有生产者生产之后，消费者才能消费。</p>
+<p>问题解释：</p>
+<p><strong>1.pthread_cond_wait内部会有一次解锁和加锁。</strong></p>
+<p>调用该函数的时候，说明当前线程等待的条件不满足，所以该函数会把当前线程放入等待队列中，然后<strong>解锁！</strong></p>
+<p>因为在生产者中对资源的修改也是要抢锁的，如果这里不解锁，就会死锁。</p>
+<p>解锁过后，wait函数会阻塞，直到收到pthread_cond_signal发出的信号。</p>
+<p>当收到之后，等待队列中的所有线程去重新加锁，只有抢到的线程，才能退出等待循环条件，从而去获取共享资源，即这里会<strong>加锁</strong>。</p>
+<p>具体看下列代码注释。</p>
+<p><strong>2.消费者中判断等待条件为什么用while而不是if</strong></p>
+<p>如果生产者中先释放锁，再single，那么可能会有新的线程去消费的时候直接拿到了新生产的资源。</p>
+<p>就算先single再释放锁，等待对列中的线程只会有一个抢到了锁，抢到了资源，其它线程仍然需要继续等待。当然，如果你的场景只需要一个线程处理了该资源就可以那也可以用if。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> 1#include &lt;pthread.h&gt;</span><br><span class="line"> 2struct msg &#123;</span><br><span class="line"> 3  struct msg *m_next;</span><br><span class="line"> 4  /* value...*/</span><br><span class="line"> 5&#125;;</span><br><span class="line"> 6</span><br><span class="line"> 7struct msg* workq;</span><br><span class="line"> 8pthread_cond_t qready = PTHREAD_COND_INITIALIZER;</span><br><span class="line"> 9pthread_mutex_t qlock = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line">10</span><br><span class="line">11void</span><br><span class="line">12process_msg() &#123;</span><br><span class="line">13  struct msg* mp;</span><br><span class="line">14  for (;;) &#123;</span><br><span class="line">15    pthread_mutex_lock(&amp;qlock);  // 加锁</span><br><span class="line">16    //这里需要用while，而不是if</span><br><span class="line">17    while (workq == NULL) &#123;</span><br><span class="line">18      pthread_cond_wait(&amp;qread, &amp;qlock); // 把当前线程放入等待队列，然后解锁，等待信号发生后再加锁。</span><br><span class="line">19    &#125;</span><br><span class="line">20    mq = workq;  // 获取到共享资源</span><br><span class="line">21    workq = mp-&gt;m_next;</span><br><span class="line">22    pthread_mutex_unlock(&amp;qlock); // 解锁</span><br><span class="line">23    /* now process the message mp */</span><br><span class="line">24  &#125;</span><br><span class="line">25&#125;</span><br><span class="line">26</span><br><span class="line">27void</span><br><span class="line">28enqueue_msg(struct msg* mp) &#123;</span><br><span class="line">29    pthread_mutex_lock(&amp;qlock);  // 加锁</span><br><span class="line">30    mp-&gt;m_next = workq;	// 把生产的共享资源mp插入到缓冲队列头</span><br><span class="line">31    workq = mp;</span><br><span class="line">32    pthread_mutex_unlock(&amp;qlock);	// 解锁</span><br><span class="line">33    /** 为什么上述要消费者中要while，因为此时另外一个线程在signal之前，执行了process_msg，刚好把mp元素拿走*/ 也就是说，如果在这里解锁的一瞬间，正好有个新的线程抢了锁刚好执行到while那一句，直接发现不用等，直接去用资源就完事了。而之前wait的等待队列里的那些线程只能等到signal才能去抢锁。</span><br><span class="line">34    pthread_cond_signal(&amp;qready);	// 通知</span><br><span class="line">35    /** 此时再执行signal, 在pthread_cond_wait等待的线程虽然被唤醒，</span><br><span class="line">36        但是mp元素已经被另外一个线程拿走，所以，workq还是NULL ,因此需要继续等待*/</span><br><span class="line">37&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">初始化条件变量</span><br><span class="line">pthread_cond_t myCond = PTHREAD_COND_INITIALIZER;</span><br><span class="line">或者使用函数：</span><br><span class="line">int pthread_cond_init(pthread_cond_t * cond, const pthread_condattr_t * attr);</span><br><span class="line"></span><br><span class="line">阻塞当前线程，等待条件成立</span><br><span class="line">int pthread_cond_wait(pthread_cond_t* cond, pthread_mutex_t* mutex);</span><br><span class="line">int pthread_cond_timedwait(pthread_cond_t* cond, pthread_mutex_t* mutex, const struct timespec* abstime); </span><br><span class="line"></span><br><span class="line">唤醒线程：</span><br><span class="line">int pthread_cond_signal(pthread_cond_t* cond);</span><br><span class="line">int pthread_cond_broadcast(pthread_cond_t* cond);</span><br></pre></td></tr></table></figure>
 
 <p>pthread_cond_wait：该函数调用时需要传入 <strong>mutex参数(加锁的互斥锁)</strong> ,函数执行时,先把调用线程放入条件变量的请求队列,然后将互斥锁mutex解锁,当函数成功返回为0时(即被singal唤醒后，重新去抢锁然后加锁，<strong>也就是说wait函数内部会有一次解锁和加锁操作</strong>.</p>
@@ -317,6 +335,11 @@
 <p>2.两猿社- 01线程同步机制封装</p>
 </div>
           <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2021/12/14/%E8%B4%AA%E5%BF%83%EF%BC%9A%E9%80%89%E8%AF%BE/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">贪心：选课</span>
+    </a>
     
     
     <a class="post-nav-item post-nav-next" href="/2021/11/07/%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
