@@ -251,7 +251,7 @@
       <header class="header">
         
           <div class="tags">
-            <a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="tag"># 每日一题</a><a href="/tags/%E7%AE%97%E6%B3%95/" class="tag"># 算法</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" class="tag"># 算法</a><a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="tag"># 每日一题</a>
           </div>
         
         <h1 class="header-title" itemprop="headline">字符串哈希匹配</h1>
@@ -282,8 +282,8 @@
 </li>
 </ul>
 <hr>
-<h4 id="2-推导过程："><a href="#2-推导过程：" class="headerlink" title="2.推导过程："></a>2.推导过程：</h4><p>假设我们对场景1的S串任取当中两个子串T = S[L,R] U = S[A,B]，我们要求这个子串t的哈希值。</p>
-<p>位权base，模数。这里就直接以s[i]的ascii码直接作为当前位的值，当然一般情况如果都是小写字母，我们会 - ‘a’，使其范围落在[0,26]。</p>
+<h4 id="2-推导过程："><a href="#2-推导过程：" class="headerlink" title="2.推导过程："></a>2.推导过程：</h4><p>假设我们对场景1的S串任取当中两个子串T = S[L,R] U = S[A,B]，我们要求这个子串T的哈希值。</p>
+<p>位权base，模数P。这里就直接以s[i]的ascii码直接作为当前位的值，当然一般情况如果都是小写字母，我们会 - ‘a’，使其范围落在[0,26]。</p>
 <p>则：</p>
 <p>hash(T) = ((s[L] * base^(L - 1) + S[L + 1] * base ^(L) +….. S[R] * base^(R - 1)) mod P.</p>
 <p>同理可求hash(U)，但是这杨我们是无法比较的，T串最低权重是base^(L - 1)，U串则是 base^(A - 1)。</p>
@@ -291,12 +291,12 @@
 <p>因此：</p>
 <p>Hash(T) = ( (hash(T) / (base ^ (L - 1)) ) ) mod P.</p>
 <p>冷知识：</p>
-<p>1.百度百科中取模等式等价变形中，是没有除法的。对于上述Hash(T)中的 / ,我们必须转化为 *。</p>
+<p>1.百度百科中取模等式等价变形中，是没有除法的，都是将除法转为乘法。对于上述Hash(T)中的 / ,我们必须转化为 *。</p>
 <p>2.逆元：</p>
 <p>如果（X * Y） % P = 1，则称X 和 Y互为逆元。</p>
 <p>并且有如下公式：</p>
 <p>（A / X) % P = (A * Y) % P</p>
-<p>因此，上述Hash可以根据逆元进行修改，将除法变长。</p>
+<p>因此，上述Hash可以根据逆元进行修改，将除法转换为乘法。</p>
 <p>上述Hash有两部分，前者hash(T)可以使用前缀和快速求得。那么现在的问题就是一个数的逆元怎么求。</p>
 <h4 id="3-逆元推导"><a href="#3-逆元推导" class="headerlink" title="3.逆元推导"></a>3.逆元推导</h4><p>上面什么base ^ (L - 1)看的烦死了，反正就是求一个数的逆元。</p>
 <p>我们现在场景就是 ：求X在模P运算下的的逆元。</p>
@@ -334,6 +334,11 @@
 
 </div>
           <nav class="post-nav">
+    
+    <a class="post-nav-item post-nav-prev" href="/2021/12/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E8%BF%9E%E6%8E%A5%E8%AF%8D/">
+      <div class="nav-arrow">&lt;&nbsp;NEWER</div>
+      <span class="post-title">每日一题:连接词</span>
+    </a>
     
     
     <a class="post-nav-item post-nav-next" href="/2021/12/14/%E8%B4%AA%E5%BF%83%EF%BC%9A%E9%80%89%E8%AF%BE/">
